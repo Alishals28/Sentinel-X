@@ -36,14 +36,17 @@ class AnomalyDetector:
         """Detect anomalies based on event frequency"""
         anomalies = []
         
-        # Count events per source
-        source_counts = Counter(log.source for log in logs)
+        # Count events per source and track timestamps
+        source_info = defaultdict(lambda: {'count': 0, 'timestamps': []})
+        for log in logs:
+            source_info[log.source]['count'] += 1
+            source_info[log.source]['timestamps'].append(log.timestamp)
         
-        if len(source_counts) < 2:
+        if len(source_info) < 2:
             return anomalies
         
         # Calculate statistics
-        counts = list(source_counts.values())
+        counts = [info['count'] for info in source_info.values()]
         mean_count = np.mean(counts)
         std_count = np.std(counts)
         
@@ -51,13 +54,16 @@ class AnomalyDetector:
             return anomalies
         
         # Find outliers
-        for source, count in source_counts.items():
+        for source, info in source_info.items():
+            count = info['count']
             z_score = (count - mean_count) / std_count
             if abs(z_score) > self.baseline_threshold:
                 self.anomaly_counter += 1
+                # Use the last timestamp from this source
+                timestamp = max(info['timestamps']) if info['timestamps'] else datetime.now()
                 anomalies.append(Anomaly(
                     anomaly_id=f"anomaly_{self.anomaly_counter}",
-                    timestamp=datetime.now(),
+                    timestamp=timestamp,
                     anomaly_type="frequency_anomaly",
                     confidence=min(0.95, abs(z_score) / 10),
                     description=f"Unusual event frequency from {source}: {count} events (z-score: {z_score:.2f})",
@@ -209,8 +215,8 @@ class AnomalyDetector:
         # Extract IP patterns from logs
         ip_pattern = re.compile(r'\b(?:\d{1,3}\.){3}\d{1,3}\b')
         
-        # Track connections per IP
-        connections = defaultdict(set)
+        # Track connections per IP and their timestamps
+        connections = defaultdict(lambda: {'destinations': set(), 'timestamps': []})
         port_scan_pattern = re.compile(r'port\s*(?:scan|probe)', re.IGNORECASE)
         
         for log in logs:
@@ -232,20 +238,23 @@ class AnomalyDetector:
             # Track unique destinations per source IP
             ips = ip_pattern.findall(log.message)
             if len(ips) >= 2:
-                connections[ips[0]].add(ips[1])
+                connections[ips[0]]['destinations'].add(ips[1])
+                connections[ips[0]]['timestamps'].append(log.timestamp)
         
         # Flag IPs connecting to many destinations (potential lateral movement)
-        for source_ip, destinations in connections.items():
-            if len(destinations) > 10:
+        for source_ip, info in connections.items():
+            if len(info['destinations']) > 10:
                 self.anomaly_counter += 1
+                # Use the last timestamp where this IP was active
+                timestamp = max(info['timestamps']) if info['timestamps'] else datetime.now()
                 anomalies.append(Anomaly(
                     anomaly_id=f"anomaly_{self.anomaly_counter}",
-                    timestamp=datetime.now(),
+                    timestamp=timestamp,
                     anomaly_type="lateral_movement",
                     confidence=0.75,
-                    description=f"Potential lateral movement: {source_ip} connected to {len(destinations)} destinations",
+                    description=f"Potential lateral movement: {source_ip} connected to {len(info['destinations'])} destinations",
                     affected_entities=[source_ip],
-                    evidence=[f"Connected to {len(destinations)} unique destinations"]
+                    evidence=[f"Connected to {len(info['destinations'])} unique destinations"]
                 ))
         
         return anomalies
