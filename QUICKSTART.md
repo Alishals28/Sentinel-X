@@ -25,12 +25,12 @@ python -m sentinel_x.main -f examples/sample_attack.log --format summary
 
 Expected output:
 ```
-🔴 Incident INC-20240205-XXXXXX (CRITICAL)
-📋 Cybersecurity Incident: Multi-stage attack detected
-🎯 Root cause identified with 85% confidence
-💻 3 affected assets
-🛡️  8 MITRE techniques identified
-📊 Confidence: 85.0%
+Incident INC-20240205-XXXXXX (CRITICAL)
+Cybersecurity Incident: Multi-stage attack detected
+Root cause identified with 85% confidence
+3 affected assets
+8 MITRE techniques identified
+Confidence: 85.0%
 ```
 
 ### 2. Try the Python API

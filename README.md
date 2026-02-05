@@ -1,22 +1,22 @@
-# SENTINEL-X 🛡️
+# SENTINEL-X 
 
 An autonomous AI incident commander that ingests large cybersecurity logs and alerts, analyzes the full context, plans its own investigation, and generates comprehensive incident reports.
 
-## 🎯 Overview
+## Overview
 
 SENTINEL-X is an intelligent cybersecurity investigation agent that:
 
-- 📥 **Ingests** large volumes of security logs and alerts
-- 🔍 **Analyzes** the full context autonomously
-- 🎯 **Plans** its own investigation strategy
-- 🛠️ **Calls tools** to detect anomalies, correlate events, and map attacks
-- 🗺️ **Maps** activities to MITRE ATT&CK framework
-- ⏱️ **Builds** detailed incident timelines
-- 🧠 **Refines** hypotheses autonomously
-- ✅ **Terminates** when confidence threshold is reached
-- 📊 **Outputs** structured incident reports with root cause, affected assets, and mitigation actions
+- **Ingests** large volumes of security logs and alerts
+- **Analyzes** the full context autonomously
+- **Plans** its own investigation strategy
+- **Calls tools** to detect anomalies, correlate events, and map attacks
+- **Maps** activities to MITRE ATT&CK framework
+- **Builds** detailed incident timelines
+- **Refines** hypotheses autonomously
+- **Terminates** when confidence threshold is reached
+- **Outputs** structured incident reports with root cause, affected assets, and mitigation actions
 
-## 🚀 Features
+## Features
 
 ### Autonomous Investigation
 - Self-directed investigation planning
@@ -36,7 +36,7 @@ SENTINEL-X is an intelligent cybersecurity investigation agent that:
 - Affected asset identification
 - Mitigation recommendations
 
-## 📦 Installation
+## Installation
 
 ```bash
 # Clone the repository
@@ -50,7 +50,7 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-## 🔧 Usage
+## Usage
 
 ### Command Line Interface
 
@@ -96,7 +96,7 @@ summary = ReportGenerator.generate_summary(report)
 print(text_report)
 ```
 
-## 📊 Example Output
+## Example Output
 
 ```
 ================================================================================
@@ -152,7 +152,7 @@ RECOMMENDED MITIGATION ACTIONS
 6. Monitor for indicators of compromise
 ```
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 sentinel_x/
@@ -169,7 +169,7 @@ sentinel_x/
 └── main.py                    # CLI entry point
 ```
 
-## 🔍 Investigation Process
+## Investigation Process
 
 1. **Data Ingestion**: Parses logs in multiple formats (JSON, syslog, CSV, generic)
 2. **Anomaly Detection**: 
@@ -199,7 +199,7 @@ sentinel_x/
 
 10. **Mitigation Recommendations**: Provides actionable remediation steps
 
-## 🧪 Examples
+## Examples
 
 See the `examples/` directory for:
 - `sample_attack.log`: Example log file with simulated attack
@@ -210,18 +210,18 @@ Run the example:
 python examples/example_usage.py
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🔒 Security
+## Security
 
 SENTINEL-X is designed for analyzing security logs and should be used in accordance with your organization's security policies. Always ensure proper authorization before analyzing production logs.
 
-## 📧 Contact
+## Contact
 
 For questions or support, please open an issue on GitHub.
