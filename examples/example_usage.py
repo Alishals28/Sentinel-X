@@ -25,9 +25,9 @@ def example_file_investigation():
     
     # Save JSON report
     json_report = ReportGenerator.generate_json_report(report)
-    with open('examples/sample_report.json', 'w') as f:
+    with open('examples/sample_report.json', 'w', encoding='utf-8') as f:
         f.write(json_report)
-    print("\n✅ JSON report saved to: examples/sample_report.json")
+    print("\nJSON report saved to: examples/sample_report.json")
 
 
 def example_log_lines_investigation():
@@ -56,7 +56,7 @@ def example_log_lines_investigation():
     summary = ReportGenerator.generate_summary(report)
     print(summary)
     
-    print("\n📊 Investigation Details:")
+    print("\nInvestigation Details:")
     print(f"  - Alerts generated: {len(report.timeline)}")
     print(f"  - MITRE techniques: {len(report.mitre_mappings)}")
     print(f"  - Affected assets: {len(report.affected_assets)}")
@@ -93,5 +93,5 @@ if __name__ == '__main__':
     example_custom_confidence()
     
     print("\n" + "=" * 80)
-    print("✅ All examples completed!")
+    print("All examples completed!")
     print("=" * 80)

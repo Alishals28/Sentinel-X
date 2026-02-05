@@ -71,10 +71,10 @@ class AutonomousAgent:
         Returns:
             Structured incident report
         """
-        print("🔍 SENTINEL-X: Starting autonomous investigation...")
+        print("SENTINEL-X: Starting autonomous investigation...")
         
         # Phase 1: Data Ingestion
-        print("\n📥 Phase 1: Ingesting logs and alerts...")
+        print("\nPhase 1: Ingesting logs and alerts...")
         if log_file_path:
             log_count = self.ingestion_engine.ingest_file(log_file_path)
         elif log_lines:
@@ -82,23 +82,23 @@ class AutonomousAgent:
         else:
             raise ValueError("Must provide either log_file_path or log_lines")
         
-        print(f"   ✓ Ingested {log_count} log entries")
-        print(f"   ✓ Generated {len(self.ingestion_engine.alerts)} initial alerts")
+        print(f"   > Ingested {log_count} log entries")
+        print(f"   > Generated {len(self.ingestion_engine.alerts)} initial alerts")
         
         # Phase 2: Create Investigation Plan
-        print("\n🎯 Phase 2: Planning investigation...")
+        print("\nPhase 2: Planning investigation...")
         self._create_investigation_plan()
-        print(f"   ✓ Created plan with {len(self.investigation_plan.steps)} steps")
+        print(f"   > Created plan with {len(self.investigation_plan.steps)} steps")
         
         # Phase 3: Execute Investigation Plan
-        print("\n🔬 Phase 3: Executing investigation plan...")
+        print("\nPhase 3: Executing investigation plan...")
         self._execute_investigation_plan()
         
         # Phase 4: Generate Report
-        print("\n📊 Phase 4: Generating incident report...")
+        print("\nPhase 4: Generating incident report...")
         report = self._generate_report()
         
-        print(f"\n✅ Investigation complete! Final confidence: {report.confidence:.2%}")
+        print(f"\nInvestigation complete! Final confidence: {report.confidence:.2%}")
         
         return report
     
@@ -124,7 +124,7 @@ class AutonomousAgent:
             if not next_step:
                 break
             
-            print(f"   → Executing: {next_step}")
+            print(f"   > Executing: {next_step}")
             
             if next_step == "detect_anomalies":
                 findings = self._detect_anomalies()
@@ -148,11 +148,11 @@ class AutonomousAgent:
                 findings = "Step not implemented"
             
             self.investigation_plan.complete_step(next_step, findings)
-            print(f"     ✓ {findings}")
+            print(f"     > {findings}")
             
             # Check if we should terminate early
             if self.current_confidence >= self.confidence_threshold:
-                print(f"\n   ⚡ High confidence reached ({self.current_confidence:.2%}), terminating investigation")
+                print(f"\n   > High confidence reached ({self.current_confidence:.2%}), terminating investigation")
                 break
     
     def _detect_anomalies(self) -> str:

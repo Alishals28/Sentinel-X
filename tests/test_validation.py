@@ -30,7 +30,7 @@ def test_log_ingestion():
     assert count == 3, f"Expected 3 logs, got {count}"
     assert len(engine.get_alerts()) > 0, "Expected alerts to be generated"
     
-    print("  ✓ Log ingestion working")
+    print("  > Log ingestion working")
 
 
 def test_anomaly_detection():
@@ -53,7 +53,7 @@ def test_anomaly_detection():
     anomalies = detector.detect_anomalies(engine.get_logs())
     
     assert len(anomalies) > 0, "Expected anomalies to be detected"
-    print(f"  ✓ Detected {len(anomalies)} anomalies")
+    print(f"  > Detected {len(anomalies)} anomalies")
 
 
 def test_event_correlation():
@@ -80,7 +80,7 @@ def test_event_correlation():
     )
     
     assert len(correlations) > 0, "Expected correlations to be found"
-    print(f"  ✓ Found {len(correlations)} correlations")
+    print(f"  > Found {len(correlations)} correlations")
 
 
 def test_mitre_mapping():
@@ -102,7 +102,7 @@ def test_mitre_mapping():
     mappings = mapper.map_to_mitre(engine.get_alerts(), anomalies)
     
     assert len(mappings) > 0, "Expected MITRE mappings"
-    print(f"  ✓ Mapped {len(mappings)} MITRE techniques")
+    print(f"  > Mapped {len(mappings)} MITRE techniques")
 
 
 def test_timeline_building():
@@ -129,7 +129,7 @@ def test_timeline_building():
     timeline = correlator.build_attack_timeline(correlations)
     
     assert len(timeline) > 0, "Expected timeline events"
-    print(f"  ✓ Built timeline with {len(timeline)} events")
+    print(f"  > Built timeline with {len(timeline)} events")
 
 
 def test_autonomous_agent():
@@ -156,7 +156,7 @@ def test_autonomous_agent():
     assert len(report.mitigation_actions) > 0, "Expected mitigation actions"
     assert report.confidence > 0, "Expected confidence > 0"
     
-    print(f"  ✓ Agent investigation complete (confidence: {report.confidence:.1%})")
+    print(f"  > Agent investigation complete (confidence: {report.confidence:.1%})")
 
 
 def test_report_generation():
@@ -184,7 +184,7 @@ def test_report_generation():
     summary = ReportGenerator.generate_summary(report)
     assert "Incident" in summary, "Expected summary to contain Incident"
     
-    print("  ✓ Report generation working")
+    print("  > Report generation working")
 
 
 def test_file_based_investigation():
@@ -200,7 +200,7 @@ def test_file_based_investigation():
         assert len(report.timeline) > 0, "Expected timeline events"
         assert len(report.mitre_mappings) > 0, "Expected MITRE mappings"
         
-        print(f"  ✓ File investigation complete")
+        print(f"  > File investigation complete")
         print(f"    - {len(report.timeline)} timeline events")
         print(f"    - {len(report.mitre_mappings)} MITRE techniques")
         print(f"    - {len(report.affected_assets)} affected assets")

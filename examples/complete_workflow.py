@@ -53,92 +53,92 @@ def demonstrate_full_workflow():
         "2024-02-05 11:00:00 database-01 INFO: Scheduled backup completed",
     ]
     
-    print("📥 Step 1: Preparing attack scenario logs")
+    print("Step 1: Preparing attack scenario logs")
     print(f"   - {len(attack_logs)} log entries simulating a multi-stage attack")
     print()
     
     # Create autonomous agent with default settings
-    print("🤖 Step 2: Creating autonomous agent")
+    print("Step 2: Creating autonomous agent")
     agent = AutonomousAgent(confidence_threshold=0.85)
     print("   - Confidence threshold: 85%")
     print()
     
     # Run autonomous investigation
-    print("🔍 Step 3: Running autonomous investigation...")
+    print("Step 3: Running autonomous investigation...")
     print()
     report = agent.investigate(log_lines=attack_logs)
     
     # Display key findings
     print()
     print("=" * 80)
-    print("📊 Investigation Results")
+    print("Investigation Results")
     print("=" * 80)
     print()
     
-    print(f"🆔 Incident ID: {report.incident_id}")
-    print(f"⚠️  Severity: {report.severity.value.upper()}")
-    print(f"📈 Confidence: {report.confidence:.1%}")
+    print(f"Incident ID: {report.incident_id}")
+    print(f"Severity: {report.severity.value.upper()}")
+    print(f"Confidence: {report.confidence:.1%}")
     print()
     
-    print("🎯 Root Cause:")
+    print("Root Cause:")
     print(f"   {report.root_cause}")
     print()
     
-    print(f"💻 Affected Assets ({len(report.affected_assets)}):")
+    print(f"Affected Assets ({len(report.affected_assets)}):")
     for asset in report.affected_assets[:5]:
-        print(f"   • {asset}")
+        print(f"   - {asset}")
     print()
     
-    print(f"🛡️  MITRE ATT&CK Techniques ({len(report.mitre_mappings)}):")
+    print(f"MITRE ATT&CK Techniques ({len(report.mitre_mappings)}):")
     for mapping in report.mitre_mappings[:5]:
-        print(f"   • {mapping.technique_id}: {mapping.technique_name}")
+        print(f"   - {mapping.technique_id}: {mapping.technique_name}")
         print(f"     Tactic: {mapping.tactic} | Confidence: {mapping.confidence:.0%}")
     print()
     
-    print(f"⏱️  Timeline Events ({len(report.timeline)}):")
-    print(f"   • First event: {report.timeline[0].timestamp if report.timeline else 'N/A'}")
-    print(f"   • Last event: {report.timeline[-1].timestamp if report.timeline else 'N/A'}")
-    print(f"   • Duration: {(report.timeline[-1].timestamp - report.timeline[0].timestamp) if len(report.timeline) > 1 else 'N/A'}")
+    print(f"Timeline Events ({len(report.timeline)}):")
+    print(f"   - First event: {report.timeline[0].timestamp if report.timeline else 'N/A'}")
+    print(f"   - Last event: {report.timeline[-1].timestamp if report.timeline else 'N/A'}")
+    print(f"   - Duration: {(report.timeline[-1].timestamp - report.timeline[0].timestamp) if len(report.timeline) > 1 else 'N/A'}")
     print()
     
-    print(f"🔧 Mitigation Actions ({len(report.mitigation_actions)}):")
+    print(f"Mitigation Actions ({len(report.mitigation_actions)}):")
     for i, action in enumerate(report.mitigation_actions[:5], 1):
         print(f"   {i}. {action}")
     print()
     
-    print(f"🧪 Hypotheses Tested ({len(report.hypotheses)}):")
+    print(f"Hypotheses Tested ({len(report.hypotheses)}):")
     for hyp in report.hypotheses:
-        status_icon = "✅" if hyp.status == "confirmed" else "🔄"
+        status_icon = "[CONFIRMED]" if hyp.status == "confirmed" else "[PENDING]"
         print(f"   {status_icon} {hyp.description}")
         print(f"      Confidence: {hyp.confidence:.0%} | Status: {hyp.status}")
     print()
     
     # Generate different report formats
     print("=" * 80)
-    print("📝 Generating Reports")
+    print("Generating Reports")
     print("=" * 80)
     print()
     
     # Summary report
-    print("📋 Summary Report:")
+    print("Summary Report:")
     print(ReportGenerator.generate_summary(report))
     print()
     
     # Save full text report
     text_report = ReportGenerator.generate_text_report(report)
-    with open('/tmp/sentinel_x_demo_report.txt', 'w') as f:
+    with open('examples/sentinel_x_demo_report.txt', 'w', encoding='utf-8') as f:
         f.write(text_report)
-    print("✅ Full text report saved to: /tmp/sentinel_x_demo_report.txt")
+    print("Full text report saved to: examples/sentinel_x_demo_report.txt")
     
     # Save JSON report
     json_report = ReportGenerator.generate_json_report(report)
-    with open('/tmp/sentinel_x_demo_report.json', 'w') as f:
+    with open('examples/sentinel_x_demo_report.json', 'w', encoding='utf-8') as f:
         f.write(json_report)
-    print("✅ JSON report saved to: /tmp/sentinel_x_demo_report.json")
+    print("JSON report saved to: examples/sentinel_x_demo_report.json")
     
     print()
     print("=" * 80)
-    print("✅ Workflow Demonstration Complete!")
+    print("Workflow Demonstration Complete!")
     print("=" * 80)
     print()
     print("Key Takeaways:")

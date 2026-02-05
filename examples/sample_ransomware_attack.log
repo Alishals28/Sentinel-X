@@ -1,0 +1,30 @@
+2024-02-05 09:00:00 email-gateway-01 INFO: Email received from external sender marketing@securetech-updates.com
+2024-02-05 09:00:15 email-gateway-01 WARNING: Suspicious attachment detected: invoice_Q4_2024.pdf.exe
+2024-02-05 09:01:30 workstation-42 INFO: User jsmith opened email attachment
+2024-02-05 09:01:45 workstation-42 WARNING: Executable file launched: invoice_Q4_2024.pdf.exe
+2024-02-05 09:02:00 edr-01 ALERT: Suspicious process behavior detected on workstation-42
+2024-02-05 09:02:15 workstation-42 CRITICAL: PowerShell executing encoded command
+2024-02-05 09:02:30 workstation-42 ERROR: Registry modification attempt: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+2024-02-05 09:02:45 firewall-01 ALERT: Outbound connection to 185.220.101.45 on port 443
+2024-02-05 09:03:00 workstation-42 CRITICAL: Process attempting to disable Windows Defender
+2024-02-05 09:03:15 ids-01 ALERT: Command and control traffic detected from workstation-42 to 185.220.101.45
+2024-02-05 09:03:30 workstation-42 WARNING: Shadow copy deletion initiated
+2024-02-05 09:03:45 workstation-42 CRITICAL: vssadmin.exe delete shadows /all /quiet executed
+2024-02-05 09:04:00 workstation-42 ERROR: Backup service stopped
+2024-02-05 09:04:15 file-server-01 WARNING: Unusual file access pattern from workstation-42
+2024-02-05 09:04:30 file-server-01 ERROR: Multiple files renamed with .locked extension
+2024-02-05 09:04:45 file-server-01 CRITICAL: Mass file encryption detected: 150 files modified
+2024-02-05 09:05:00 workstation-42 CRITICAL: Files being encrypted with .locked extension
+2024-02-05 09:05:15 file-server-01 CRITICAL: 500+ files encrypted in shared drives
+2024-02-05 09:05:30 domain-controller-01 WARNING: Multiple SMB connections from workstation-42
+2024-02-05 09:05:45 workstation-43 WARNING: Unusual network activity from workstation-42
+2024-02-05 09:06:00 workstation-43 CRITICAL: File encryption started on workstation-43
+2024-02-05 09:06:15 workstation-44 CRITICAL: File encryption started on workstation-44
+2024-02-05 09:06:30 edr-01 ALERT: Lateral movement detected: workstation-42 to multiple hosts
+2024-02-05 09:06:45 file-server-01 CRITICAL: Ransomware note created: README_TO_DECRYPT.txt
+2024-02-05 09:07:00 workstation-42 INFO: File created: YOUR_FILES_ARE_ENCRYPTED.txt
+2024-02-05 09:07:15 database-01 WARNING: Connection attempt from workstation-42
+2024-02-05 09:07:30 database-01 ERROR: Unauthorized database access from workstation-42
+2024-02-05 09:07:45 firewall-01 CRITICAL: Data exfiltration attempt to 185.220.101.45
+2024-02-05 09:08:00 ids-01 ALERT: Large volume of encrypted traffic to external IP
+2024-02-05 09:08:15 siem-01 CRITICAL: Ransomware outbreak detected across network

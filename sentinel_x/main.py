@@ -92,7 +92,7 @@ Examples:
         if args.output:
             output_path = Path(args.output)
             output_path.write_text(output)
-            print(f"\n📝 Report saved to: {args.output}")
+            print(f"\nReport saved to: {args.output}")
         else:
             print("\n" + output)
         

@@ -220,4 +220,4 @@ class MitreMapper:
         elif len(ordered_tactics) == 1:
             return f"Single-stage attack: {ordered_tactics[0]}"
         else:
-            return f"Multi-stage attack: {' → '.join(ordered_tactics)}"
+            return f"Multi-stage attack: {' > '.join(ordered_tactics)}"

@@ -43,7 +43,7 @@ class ReportGenerator:
             lines.append("AFFECTED ASSETS")
             lines.append("-" * 80)
             for asset in report.affected_assets[:20]:
-                lines.append(f"  • {asset}")
+                lines.append(f"  - {asset}")
             if len(report.affected_assets) > 20:
                 lines.append(f"  ... and {len(report.affected_assets) - 20} more")
             lines.append("")
@@ -52,7 +52,7 @@ class ReportGenerator:
             lines.append("MITRE ATT&CK TECHNIQUES")
             lines.append("-" * 80)
             for mapping in report.mitre_mappings[:10]:
-                lines.append(f"  • {mapping.technique_id}: {mapping.technique_name}")
+                lines.append(f"  - {mapping.technique_id}: {mapping.technique_name}")
                 lines.append(f"    Tactic: {mapping.tactic}")
                 lines.append(f"    Confidence: {mapping.confidence:.1%}")
                 if mapping.evidence:
@@ -75,7 +75,7 @@ class ReportGenerator:
             lines.append("INVESTIGATION HYPOTHESES")
             lines.append("-" * 80)
             for hyp in report.hypotheses:
-                lines.append(f"  • {hyp.description}")
+                lines.append(f"  - {hyp.description}")
                 lines.append(f"    Status: {hyp.status} | Confidence: {hyp.confidence:.1%}")
                 if hyp.evidence_for:
                     lines.append(f"    Supporting evidence: {len(hyp.evidence_for)} items")
@@ -92,7 +92,7 @@ class ReportGenerator:
             lines.append("INVESTIGATION STEPS COMPLETED")
             lines.append("-" * 80)
             for step in report.investigation_steps:
-                lines.append(f"  ✓ {step}")
+                lines.append(f"  - {step}")
             lines.append("")
         
         lines.append("=" * 80)
@@ -110,11 +110,11 @@ class ReportGenerator:
     def generate_summary(report: IncidentReport) -> str:
         """Generate a brief summary of the incident"""
         summary = []
-        summary.append(f"🔴 Incident {report.incident_id} ({report.severity.value.upper()})")
-        summary.append(f"📋 {report.title}")
-        summary.append(f"🎯 {report.root_cause}")
-        summary.append(f"💻 {len(report.affected_assets)} affected assets")
-        summary.append(f"🛡️  {len(report.mitre_mappings)} MITRE techniques identified")
-        summary.append(f"📊 Confidence: {report.confidence:.1%}")
+        summary.append(f"Incident {report.incident_id} ({report.severity.value.upper()})")
+        summary.append(f"Title: {report.title}")
+        summary.append(f"Root Cause: {report.root_cause}")
+        summary.append(f"Affected Assets: {len(report.affected_assets)}")
+        summary.append(f"MITRE Techniques: {len(report.mitre_mappings)}")
+        summary.append(f"Confidence: {report.confidence:.1%}")
         
         return "\n".join(summary)

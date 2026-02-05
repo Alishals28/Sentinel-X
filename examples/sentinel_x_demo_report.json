@@ -1,0 +1,558 @@
+{
+  "incident_id": "INC-20260205-225335",
+  "timestamp": "2026-02-05T22:53:35.569680",
+  "title": "Cybersecurity Incident: Attack follows pattern: Multi-stage attack: Reconn",
+  "summary": "Investigation completed with 13 alerts and 7 anomalies detected. Attack spans 5 MITRE ATT&CK tactics: Reconnaissance, Initial Access, Privilege Escalation. Primary hypothesis: Attack follows pattern: Multi-stage attack: Reconnaissance → Initial Access → Privilege Escalation → Credential Access → Exfiltration (confidence: 80%).",
+  "severity": "critical",
+  "root_cause": "Attack follows pattern: Multi-stage attack: Reconnaissance → Initial Access → Privilege Escalation → Credential Access → Exfiltration",
+  "affected_assets": [
+    "network",
+    "unknown",
+    "203.0.113.45"
+  ],
+  "timeline": [
+    {
+      "timestamp": "2024-02-05T10:05:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:05:00 ids-01 ALERT: Port scanning detected from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:05:00",
+      "event_type": "port_scan",
+      "description": "Port scanning activity detected from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "203.0.113.45"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:05:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:05:00 ids-01 ALERT: Port scanning detected from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:05:00",
+      "event_type": "port_scan",
+      "description": "Port scanning activity detected from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "203.0.113.45"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:05:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:05:00 ids-01 ALERT: Port scanning detected from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:05:00",
+      "event_type": "port_scan",
+      "description": "Port scanning activity detected from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "203.0.113.45"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:15:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:15:00 web-server-01 CRITICAL: SQL injection attempt: ' OR 1=1 -- from 203.0.113.45",
+      "source": "alert",
+      "severity": "critical",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:15:00",
+      "event_type": "pattern_sql_injection",
+      "description": "Detected sql injection pattern: 2024-02-05 10:15:00 web-server-01 CRITICAL: SQL injection attempt: ' OR 1=1 -- from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:15:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:15:00 web-server-01 CRITICAL: SQL injection attempt: ' OR 1=1 -- from 203.0.113.45",
+      "source": "alert",
+      "severity": "critical",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:15:00",
+      "event_type": "pattern_sql_injection",
+      "description": "Detected sql injection pattern: 2024-02-05 10:15:00 web-server-01 CRITICAL: SQL injection attempt: ' OR 1=1 -- from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:16:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:16:00 web-server-01 ERROR: Database error - possible SQL injection",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:20:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:20:00 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:20:00",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:00 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:00",
+      "event_type": "volume_spike",
+      "description": "Traffic volume spike: 4 events/minute (z-score: 4.00)",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "network"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:20:00 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:20:00",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:00 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:20:00 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:20:00",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:00 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:00",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:00 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:15",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:20:15 web-server-01 ERROR: Failed login for root from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:20:15",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:15 web-server-01 ERROR: Failed login for root from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:15",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:20:15 web-server-01 ERROR: Failed login for root from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:20:15",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:15 web-server-01 ERROR: Failed login for root from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:15",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:15 web-server-01 ERROR: Failed login for root from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:30",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:20:30 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:20:30",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:30 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:30",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:20:30 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:20:30",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:30 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:30",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:20:30 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:20:30",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:30 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:30",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:30 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:45",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:20:45 web-server-01 ERROR: Failed login for administrator from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:20:45",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:45 web-server-01 ERROR: Failed login for administrator from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:45",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:20:45 web-server-01 ERROR: Failed login for administrator from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:20:45",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:45 web-server-01 ERROR: Failed login for administrator from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:45",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:20:45 web-server-01 ERROR: Failed login for administrator from 203.0.113.45",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:20:45",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:45 web-server-01 ERROR: Failed login for administrator from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:20:45",
+      "event_type": "pattern_brute_force",
+      "description": "Detected brute force pattern: 2024-02-05 10:20:45 web-server-01 ERROR: Failed login for administrator from 203.0.113.45",
+      "source": "anomaly",
+      "severity": "medium",
+      "related_entities": [
+        "unknown"
+      ]
+    },
+    {
+      "timestamp": "2024-02-05T10:21:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:21:00 web-server-01 CRITICAL: Successful login for admin from 203.0.113.45",
+      "source": "alert",
+      "severity": "critical",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:21:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:21:00 web-server-01 CRITICAL: Successful login for admin from 203.0.113.45",
+      "source": "alert",
+      "severity": "critical",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:21:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:21:00 web-server-01 CRITICAL: Successful login for admin from 203.0.113.45",
+      "source": "alert",
+      "severity": "critical",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:25:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:25:00 web-server-01 ERROR: Privilege escalation attempt detected",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:25:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:25:00 web-server-01 ERROR: Privilege escalation attempt detected",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:26:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:26:00 web-server-01 CRITICAL: Unauthorized sudo access",
+      "source": "alert",
+      "severity": "critical",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:26:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:26:00 web-server-01 CRITICAL: Unauthorized sudo access",
+      "source": "alert",
+      "severity": "critical",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:32:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:32:00 file-server-01 CRITICAL: Unauthorized file access",
+      "source": "alert",
+      "severity": "critical",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:40:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:40:00 firewall-01 ALERT: Large data transfer to 198.51.100.99",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:40:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:40:00 firewall-01 ALERT: Large data transfer to 198.51.100.99",
+      "source": "alert",
+      "severity": "high",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:41:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:41:00 ids-01 CRITICAL: Data exfiltration detected to 198.51.100.99",
+      "source": "alert",
+      "severity": "critical",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:41:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:41:00 ids-01 CRITICAL: Data exfiltration detected to 198.51.100.99",
+      "source": "alert",
+      "severity": "critical",
+      "related_entities": []
+    },
+    {
+      "timestamp": "2024-02-05T10:41:00",
+      "event_type": "suspicious_activity",
+      "description": "2024-02-05 10:41:00 ids-01 CRITICAL: Data exfiltration detected to 198.51.100.99",
+      "source": "alert",
+      "severity": "critical",
+      "related_entities": []
+    }
+  ],
+  "mitre_mappings": [
+    {
+      "technique_id": "T1595",
+      "technique_name": "Active Scanning",
+      "tactic": "Reconnaissance",
+      "confidence": 0.95,
+      "evidence": [
+        "Alert: 2024-02-05 10:05:00 ids-01 ALERT: Port scanning detected from 203.0.113.45",
+        "Anomaly: Port scanning activity detected from 203.0.113.45"
+      ]
+    },
+    {
+      "technique_id": "T1190",
+      "technique_name": "Exploit Public-Facing Application",
+      "tactic": "Initial Access",
+      "confidence": 0.95,
+      "evidence": [
+        "Alert: 2024-02-05 10:15:00 web-server-01 CRITICAL: SQL injection attempt: ' OR 1=1 -- from 203.0.113.45",
+        "Alert: 2024-02-05 10:16:00 web-server-01 ERROR: Database error - possible SQL injection",
+        "Anomaly: Detected sql injection pattern: 2024-02-05 10:15:00 web-server-01 CRITICAL: SQL injection attempt: '"
+      ]
+    },
+    {
+      "technique_id": "T1548",
+      "technique_name": "Abuse Elevation Control Mechanism",
+      "tactic": "Privilege Escalation",
+      "confidence": 0.95,
+      "evidence": [
+        "Alert: 2024-02-05 10:25:00 web-server-01 ERROR: Privilege escalation attempt detected",
+        "Alert: 2024-02-05 10:26:00 web-server-01 CRITICAL: Unauthorized sudo access"
+      ]
+    },
+    {
+      "technique_id": "T1110",
+      "technique_name": "Brute Force",
+      "tactic": "Credential Access",
+      "confidence": 0.9179999999999999,
+      "evidence": [
+        "Alert: 2024-02-05 10:20:00 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+        "Alert: 2024-02-05 10:20:15 web-server-01 ERROR: Failed login for root from 203.0.113.45",
+        "Alert: 2024-02-05 10:20:30 web-server-01 ERROR: Failed login for admin from 203.0.113.45",
+        "Alert: 2024-02-05 10:20:45 web-server-01 ERROR: Failed login for administrator from 203.0.113.45",
+        "Anomaly: Detected brute force pattern: 2024-02-05 10:20:00 web-server-01 ERROR: Failed login for admin from 2",
+        "Anomaly: Detected brute force pattern: 2024-02-05 10:20:15 web-server-01 ERROR: Failed login for root from 20",
+        "Anomaly: Detected brute force pattern: 2024-02-05 10:20:30 web-server-01 ERROR: Failed login for admin from 2",
+        "Anomaly: Detected brute force pattern: 2024-02-05 10:20:45 web-server-01 ERROR: Failed login for administrato"
+      ]
+    },
+    {
+      "technique_id": "T1041",
+      "technique_name": "Exfiltration Over C2 Channel",
+      "tactic": "Exfiltration",
+      "confidence": 0.85,
+      "evidence": [
+        "Alert: 2024-02-05 10:41:00 ids-01 CRITICAL: Data exfiltration detected to 198.51.100.99"
+      ]
+    }
+  ],
+  "mitigation_actions": [
+    "Review and restrict network firewall rules",
+    "Implement network segmentation",
+    "Review and rotate compromised credentials",
+    "Conduct forensic analysis on affected systems",
+    "Monitor for indicators of compromise",
+    "Update incident response procedures based on findings"
+  ],
+  "confidence": 0.7999999999999999,
+  "investigation_steps": [
+    "detect_anomalies",
+    "correlate_events",
+    "map_mitre_techniques",
+    "build_timeline",
+    "form_hypotheses",
+    "refine_hypotheses",
+    "determine_root_cause",
+    "identify_affected_assets",
+    "recommend_mitigations"
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "7e5098fc-8623-47cf-9e6d-24b0ac93f82b",
+      "description": "Attack follows pattern: Multi-stage attack: Reconnaissance → Initial Access → Privilege Escalation → Credential Access → Exfiltration",
+      "confidence": 0.7999999999999999,
+      "evidence_for": [
+        "Active Scanning",
+        "Exploit Public-Facing Application",
+        "Abuse Elevation Control Mechanism",
+        "Attack chain correlation: Attack chain detected: reconnaissance, privilege_escalation, exfiltration, initial_access"
+      ],
+      "evidence_against": [],
+      "status": "confirmed"
+    }
+  ]
+}
