@@ -1,0 +1,26 @@
+2024-02-05 14:00:15 firewall-01 INFO: Connection established from 192.168.1.100 to 10.0.0.50
+2024-02-05 14:02:33 web-server-01 WARNING: Unusual request pattern from 203.0.113.45
+2024-02-05 14:03:12 web-server-01 CRITICAL: SQL injection attempt detected: ' OR 1=1 -- from 203.0.113.45
+2024-02-05 14:03:45 web-server-01 ERROR: Failed authentication for user admin from 203.0.113.45
+2024-02-05 14:04:01 web-server-01 ERROR: Failed authentication for user root from 203.0.113.45
+2024-02-05 14:04:15 web-server-01 ERROR: Failed authentication for user admin from 203.0.113.45
+2024-02-05 14:04:30 web-server-01 ERROR: Failed authentication for user administrator from 203.0.113.45
+2024-02-05 14:05:22 web-server-01 CRITICAL: Successful login for user admin from 203.0.113.45
+2024-02-05 14:06:10 ids-01 ALERT: Port scanning activity detected from 203.0.113.45
+2024-02-05 14:07:33 database-01 WARNING: Unusual query volume from web-server-01
+2024-02-05 14:08:45 web-server-01 CRITICAL: Command injection attempt: ; cat /etc/passwd from 203.0.113.45
+2024-02-05 14:09:12 web-server-01 ERROR: Privilege escalation attempt detected
+2024-02-05 14:10:05 file-server-01 WARNING: Connection from web-server-01 (unusual lateral movement)
+2024-02-05 14:11:20 file-server-01 CRITICAL: Unauthorized access to sensitive directory /data/customers
+2024-02-05 14:12:45 firewall-01 ALERT: Large data transfer to external IP 198.51.100.99
+2024-02-05 14:13:10 ids-01 CRITICAL: Data exfiltration detected to 198.51.100.99
+2024-02-05 14:14:00 web-server-01 INFO: User admin logged out
+2024-02-05 14:15:30 file-server-01 WARNING: Failed access attempt to /data/customers
+2024-02-05 14:16:45 database-01 ERROR: Connection timeout from web-server-01
+2024-02-05 14:18:00 firewall-01 INFO: Connection closed to 198.51.100.99
+2024-02-05 14:20:15 web-server-01 INFO: Normal user activity from 192.168.1.50
+2024-02-05 14:25:30 web-server-01 INFO: Page requested by 192.168.1.75
+2024-02-05 14:30:00 database-01 INFO: Scheduled backup completed
+2024-02-05 14:35:45 web-server-01 WARNING: Multiple failed login attempts from 203.0.113.50
+2024-02-05 14:36:00 web-server-01 ERROR: Brute force attack detected from 203.0.113.50
+2024-02-05 14:37:15 firewall-01 ALERT: Blocking IP 203.0.113.50 due to suspicious activity

@@ -346,20 +346,8 @@ class AutonomousAgent:
         # Generate summary
         summary = self._generate_summary(alerts, anomalies, mappings)
         
-        # Collect mitigation actions
-        mitigations = []
-        for step in self.investigation_plan.completed_steps:
-            if step['step'] == 'recommend_mitigations':
-                # Extract mitigations from findings
-                mitigations = [
-                    "Implement account lockout policy after failed login attempts",
-                    "Enable multi-factor authentication",
-                    "Apply security patches and updates",
-                    "Review and rotate compromised credentials",
-                    "Implement network segmentation",
-                    "Monitor for indicators of compromise"
-                ]
-                break
+        # Collect mitigation actions - generate based on detected threats
+        mitigations = self._generate_mitigations(alerts, anomalies)
         
         return IncidentReport(
             incident_id=f"INC-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
@@ -376,6 +364,43 @@ class AutonomousAgent:
             investigation_steps=[s['step'] for s in self.investigation_plan.completed_steps],
             hypotheses=self.hypotheses
         )
+    
+    def _generate_mitigations(self, alerts: List[Alert], anomalies: List[Anomaly]) -> List[str]:
+        """Generate mitigation recommendations based on detected threats"""
+        mitigations = []
+        
+        # Mitigation based on alert types
+        alert_types = set(a.alert_type for a in alerts)
+        
+        if 'brute_force_attempt' in {a.anomaly_type for a in anomalies}:
+            mitigations.append("Implement account lockout policy after failed login attempts")
+            mitigations.append("Enable multi-factor authentication for all accounts")
+        
+        if any('sql_injection' in a.alert_type for a in alerts):
+            mitigations.append("Apply input validation and parameterized queries")
+            mitigations.append("Update and patch web application vulnerabilities")
+        
+        if any('port_scan' in a.anomaly_type for a in anomalies):
+            mitigations.append("Review and restrict network firewall rules")
+            mitigations.append("Implement network segmentation")
+        
+        # Generic mitigations
+        mitigations.extend([
+            "Review and rotate compromised credentials",
+            "Conduct forensic analysis on affected systems",
+            "Monitor for indicators of compromise",
+            "Update incident response procedures based on findings"
+        ])
+        
+        # Remove duplicates while preserving order
+        seen = set()
+        unique_mitigations = []
+        for m in mitigations:
+            if m not in seen:
+                seen.add(m)
+                unique_mitigations.append(m)
+        
+        return unique_mitigations
     
     def _generate_summary(self, alerts: List[Alert], 
                          anomalies: List[Anomaly], 
