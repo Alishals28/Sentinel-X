@@ -211,16 +211,37 @@ class LogIngestionEngine:
     
     def _check_for_alert(self, log_entry: LogEntry) -> Optional[Alert]:
         """Check if a log entry should generate an alert"""
-        # Generate alerts for high severity logs or suspicious patterns
+        # Generate alerts for high severity logs only if security-related keywords are present
+        message_lower = log_entry.message.lower()
+        security_keywords = [
+            'attack', 'breach', 'intrusion', 'unauthorized', 'malware', 'ransomware',
+            'exploit', 'vulnerability', 'sql injection', 'xss', 'brute force',
+            'credential', 'failed login', 'lateral movement', 'exfiltration',
+            'command and control', 'c2', 'phishing', 'backdoor', 'rootkit',
+            'privilege escalation', 'data theft', 'data exfiltration'
+        ]
+        
+        # Extract IPs from log message
+        ip_pattern = re.compile(r'\b(?:\d{1,3}\.){3}\d{1,3}\b')
+        ips = ip_pattern.findall(log_entry.message)
+        source_ip = ips[0] if ips else None
+        dest_ip = ips[1] if len(ips) > 1 else None
+        
         if log_entry.severity in [Severity.CRITICAL, Severity.HIGH]:
-            return Alert(
-                alert_id=f"alert_{len(self.alerts) + 1}",
-                timestamp=log_entry.timestamp,
-                alert_type="suspicious_activity",
-                severity=log_entry.severity,
-                description=log_entry.message,
-                metadata={'source_log': log_entry.source}
-            )
+            if any(keyword in message_lower for keyword in security_keywords):
+                affected = [log_entry.source] if log_entry.source else []
+                affected.extend(ips)
+                return Alert(
+                    alert_id=f"alert_{len(self.alerts) + 1}",
+                    timestamp=log_entry.timestamp,
+                    alert_type="suspicious_activity",
+                    severity=log_entry.severity,
+                    description=log_entry.message,
+                    source_ip=source_ip,
+                    destination_ip=dest_ip,
+                    affected_assets=affected,
+                    metadata={'source_log': log_entry.source}
+                )
         
         # Check for specific attack patterns
         suspicious_patterns = [
@@ -229,15 +250,19 @@ class LogIngestionEngine:
             'brute force', 'port scan', 'malware', 'ransomware', 'backdoor'
         ]
         
-        message_lower = log_entry.message.lower()
         for pattern in suspicious_patterns:
             if pattern in message_lower:
+                affected = [log_entry.source] if log_entry.source else []
+                affected.extend(ips)
                 return Alert(
                     alert_id=f"alert_{len(self.alerts) + 1}",
                     timestamp=log_entry.timestamp,
                     alert_type=pattern.replace(' ', '_'),
                     severity=Severity.HIGH,
                     description=f"Potential {pattern} detected: {log_entry.message[:100]}",
+                    source_ip=source_ip,
+                    destination_ip=dest_ip,
+                    affected_assets=affected,
                     metadata={'pattern': pattern, 'source_log': log_entry.source}
                 )
         

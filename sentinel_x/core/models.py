@@ -93,5 +93,6 @@ class IncidentReport(BaseModel):
     mitre_mappings: List[MitreMapping]
     mitigation_actions: List[str]
     confidence: float
+    is_incident: bool = True
     investigation_steps: List[str] = Field(default_factory=list)
     hypotheses: List[Hypothesis] = Field(default_factory=list)

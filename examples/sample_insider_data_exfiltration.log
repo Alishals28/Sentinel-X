@@ -1,0 +1,20 @@
+2024-02-05 18:00:00 vpn-gateway-01 INFO: User jdoe connected from 172.16.5.10
+2024-02-05 18:02:10 iam-01 INFO: MFA verification successful for user jdoe
+2024-02-05 18:05:00 file-server-02 INFO: User jdoe accessed folder /finance/q4
+2024-02-05 18:06:15 file-server-02 WARNING: Unusual file access pattern from user jdoe
+2024-02-05 18:07:30 file-server-02 ERROR: Large file read detected: payroll_2024.xlsx
+2024-02-05 18:08:45 database-03 INFO: Query executed by jdoe: SELECT * FROM customers
+2024-02-05 18:10:00 dlp-01 WARNING: Sensitive data detected in user session: PII
+2024-02-05 18:11:20 proxy-01 INFO: HTTPS upload initiated to fileshare.example.com
+2024-02-05 18:12:05 proxy-01 WARNING: Large outbound upload: 1.2GB
+2024-02-05 18:12:45 firewall-01 ALERT: Data exfiltration pattern detected from 172.16.5.10
+2024-02-05 18:13:10 ids-03 ALERT: Unusual data transfer to external IP 203.0.113.200
+2024-02-05 18:14:00 file-server-02 WARNING: Bulk file access detected: 250 files in 5 minutes
+2024-02-05 18:15:30 iam-01 WARNING: Role escalation attempt by user jdoe
+2024-02-05 18:16:10 iam-01 ERROR: Unauthorized privilege escalation attempt blocked
+2024-02-05 18:17:00 endpoint-12 WARNING: USB storage device connected
+2024-02-05 18:17:45 endpoint-12 ERROR: Mass file copy to removable media detected
+2024-02-05 18:18:30 dlp-01 ALERT: Confidential data transfer to removable media
+2024-02-05 18:19:00 proxy-01 WARNING: Connection to personal email provider detected
+2024-02-05 18:19:30 proxy-01 ERROR: Large email attachment sent: financials.zip
+2024-02-05 18:20:00 siem-01 CRITICAL: Insider data exfiltration suspected: user jdoe

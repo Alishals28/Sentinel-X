@@ -2,8 +2,8 @@
 SENTINEL-X INCIDENT REPORT
 ================================================================================
 
-Incident ID:  INC-20260205-225335
-Timestamp:    2026-02-05 22:53:35
+Incident ID:  INC-20260205-230756
+Timestamp:    2026-02-05 23:07:56
 Severity:     CRITICAL
 Confidence:   80.0%
 
@@ -12,41 +12,41 @@ Title: Cybersecurity Incident: Attack follows pattern: Multi-stage attack: Recon
 
 EXECUTIVE SUMMARY
 --------------------------------------------------------------------------------
-Investigation completed with 13 alerts and 7 anomalies detected. Attack spans 5 MITRE ATT&CK tactics: Reconnaissance, Initial Access, Privilege Escalation. Primary hypothesis: Attack follows pattern: Multi-stage attack: Reconnaissance → Initial Access → Privilege Escalation → Credential Access → Exfiltration (confidence: 80%).
+Investigation completed with 13 alerts and 7 anomalies detected. Attack spans 5 MITRE ATT&CK tactics: Reconnaissance, Initial Access, Privilege Escalation. Primary hypothesis: Attack follows pattern: Multi-stage attack: Reconnaissance > Initial Access > Privilege Escalation > Credential Access > Exfiltration (confidence: 80%).
 
 ROOT CAUSE
 --------------------------------------------------------------------------------
-Attack follows pattern: Multi-stage attack: Reconnaissance → Initial Access → Privilege Escalation → Credential Access → Exfiltration
+Attack follows pattern: Multi-stage attack: Reconnaissance > Initial Access > Privilege Escalation > Credential Access > Exfiltration
 
 AFFECTED ASSETS
 --------------------------------------------------------------------------------
-  • network
-  • unknown
-  • 203.0.113.45
+  - unknown
+  - network
+  - 203.0.113.45
 
 MITRE ATT&CK TECHNIQUES
 --------------------------------------------------------------------------------
-  • T1595: Active Scanning
+  - T1595: Active Scanning
     Tactic: Reconnaissance
     Confidence: 95.0%
     Evidence: Alert: 2024-02-05 10:05:00 ids-01 ALERT: Port scanning detec...
 
-  • T1190: Exploit Public-Facing Application
+  - T1190: Exploit Public-Facing Application
     Tactic: Initial Access
     Confidence: 95.0%
     Evidence: Alert: 2024-02-05 10:15:00 web-server-01 CRITICAL: SQL injec...
 
-  • T1548: Abuse Elevation Control Mechanism
+  - T1548: Abuse Elevation Control Mechanism
     Tactic: Privilege Escalation
     Confidence: 95.0%
     Evidence: Alert: 2024-02-05 10:25:00 web-server-01 ERROR: Privilege es...
 
-  • T1110: Brute Force
+  - T1110: Brute Force
     Tactic: Credential Access
     Confidence: 91.8%
     Evidence: Alert: 2024-02-05 10:20:00 web-server-01 ERROR: Failed login...
 
-  • T1041: Exfiltration Over C2 Channel
+  - T1041: Exfiltration Over C2 Channel
     Tactic: Exfiltration
     Confidence: 85.0%
     Evidence: Alert: 2024-02-05 10:41:00 ids-01 CRITICAL: Data exfiltratio...
@@ -72,7 +72,7 @@ INCIDENT TIMELINE
 
 INVESTIGATION HYPOTHESES
 --------------------------------------------------------------------------------
-  • Attack follows pattern: Multi-stage attack: Reconnaissance → Initial Access → Privilege Escalation → Credential Access → Exfiltration
+  - Attack follows pattern: Multi-stage attack: Reconnaissance > Initial Access > Privilege Escalation > Credential Access > Exfiltration
     Status: confirmed | Confidence: 80.0%
     Supporting evidence: 4 items
 
@@ -87,15 +87,15 @@ RECOMMENDED MITIGATION ACTIONS
 
 INVESTIGATION STEPS COMPLETED
 --------------------------------------------------------------------------------
-  ✓ detect_anomalies
-  ✓ correlate_events
-  ✓ map_mitre_techniques
-  ✓ build_timeline
-  ✓ form_hypotheses
-  ✓ refine_hypotheses
-  ✓ determine_root_cause
-  ✓ identify_affected_assets
-  ✓ recommend_mitigations
+  - detect_anomalies
+  - correlate_events
+  - map_mitre_techniques
+  - build_timeline
+  - form_hypotheses
+  - refine_hypotheses
+  - determine_root_cause
+  - identify_affected_assets
+  - recommend_mitigations
 
 ================================================================================
 End of Report

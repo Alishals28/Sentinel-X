@@ -89,16 +89,24 @@ Examples:
             output = ReportGenerator.generate_text_report(report)
         
         # Write output
+        if not report.is_incident:
+            print("\nNo incident detected. No report file created.")
+            return
+
         if args.output:
             output_path = Path(args.output)
-            output_path.write_text(output)
-            print(f"\nReport saved to: {args.output}")
+            # Create parent directory if it doesn't exist
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            # Write with UTF-8 encoding
+            output_path.write_text(output, encoding='utf-8')
+            
+            print("\n" + "=" * 80)
+            print(f"Report successfully saved to: {output_path.absolute()}")
+            print("=" * 80)
+            print("\nReport Summary:")
+            print(ReportGenerator.generate_summary(report))
         else:
             print("\n" + output)
-        
-        # Print summary to stderr so it's always visible
-        if args.format != 'summary':
-            print("\n" + ReportGenerator.generate_summary(report), file=sys.stderr)
         
     except Exception as e:
         print(f"Error during investigation: {str(e)}", file=sys.stderr)

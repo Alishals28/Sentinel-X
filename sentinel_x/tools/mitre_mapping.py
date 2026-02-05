@@ -25,12 +25,12 @@ class MitreMapper:
             'T1190': {
                 'name': 'Exploit Public-Facing Application',
                 'tactic': 'Initial Access',
-                'keywords': ['sql injection', 'xss', 'exploit', 'vulnerability', 'web attack']
+                'keywords': ['sql injection', 'xss', 'exploit', 'vulnerability', 'web attack', 'rce', 'remote code execution']
             },
             'T1059': {
                 'name': 'Command and Scripting Interpreter',
                 'tactic': 'Execution',
-                'keywords': ['command injection', 'shell', 'powershell', 'bash', 'script execution']
+                'keywords': ['command injection', 'shell', 'powershell', 'bash', 'script execution', 'encoded command']
             },
             'T1548': {
                 'name': 'Abuse Elevation Control Mechanism',
@@ -50,7 +50,7 @@ class MitreMapper:
             'T1070': {
                 'name': 'Indicator Removal on Host',
                 'tactic': 'Defense Evasion',
-                'keywords': ['log deletion', 'clear logs', 'hide traces', 'anti-forensics']
+                'keywords': ['log deletion', 'clear logs', 'hide traces', 'anti-forensics', 'log tampering']
             },
             'T1087': {
                 'name': 'Account Discovery',
@@ -80,7 +80,7 @@ class MitreMapper:
             'T1486': {
                 'name': 'Data Encrypted for Impact',
                 'tactic': 'Impact',
-                'keywords': ['ransomware', 'encryption', 'crypto', 'locked files']
+                'keywords': ['ransomware', 'encryption', 'encrypted', 'locked', '.locked', 'decrypt']
             },
             'T1498': {
                 'name': 'Network Denial of Service',
@@ -90,17 +90,52 @@ class MitreMapper:
             'T1566': {
                 'name': 'Phishing',
                 'tactic': 'Initial Access',
-                'keywords': ['phishing', 'spear phishing', 'malicious email', 'attachment']
+                'keywords': ['phishing', 'spear phishing', 'malicious email', 'suspicious attachment']
             },
             'T1204': {
                 'name': 'User Execution',
                 'tactic': 'Execution',
-                'keywords': ['malicious file', 'user clicked', 'executed attachment']
+                'keywords': ['malicious file', 'user clicked', 'executed attachment', 'user opened', 'launched']
             },
             'T1071': {
                 'name': 'Application Layer Protocol',
                 'tactic': 'Command and Control',
-                'keywords': ['http c2', 'https beacon', 'web shell']
+                'keywords': ['http c2', 'https beacon', 'web shell', 'command and control', 'c2 traffic']
+            },
+            'T1496': {
+                'name': 'Resource Hijacking',
+                'tactic': 'Impact',
+                'keywords': ['cryptomining', 'cryptojacking', 'mining pool', 'xmrig', 'cpu usage', 'mining']
+            },
+            'T1053': {
+                'name': 'Scheduled Task/Job',
+                'tactic': 'Persistence',
+                'keywords': ['crontab', 'cron', 'scheduled task', 'systemd service']
+            },
+            'T1562': {
+                'name': 'Impair Defenses',
+                'tactic': 'Defense Evasion',
+                'keywords': ['disable', 'defender', 'antivirus', 'firewall rules modified', 'security disabled']
+            },
+            'T1490': {
+                'name': 'Inhibit System Recovery',
+                'tactic': 'Impact',
+                'keywords': ['shadow copy', 'vssadmin', 'backup', 'recovery']
+            },
+            'T1027': {
+                'name': 'Obfuscated Files or Information',
+                'tactic': 'Defense Evasion',
+                'keywords': ['encoded', 'obfuscated', 'hidden', 'rootkit']
+            },
+            'T1105': {
+                'name': 'Ingress Tool Transfer',
+                'tactic': 'Command and Control',
+                'keywords': ['download', 'malicious binary', 'deployed', 'transferred']
+            },
+            'T1098': {
+                'name': 'Account Manipulation',
+                'tactic': 'Persistence',
+                'keywords': ['ssh key', 'authorized_keys', 'account added']
             }
         }
     

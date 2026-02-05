@@ -228,16 +228,33 @@ class AutonomousAgent:
         """Refine hypotheses based on additional analysis"""
         # Analyze correlations to strengthen or weaken hypotheses
         correlations = self.correlator.correlated_events
+        alerts = self.ingestion_engine.get_alerts()
+        mappings = self.mitre_mapper.map_to_mitre(alerts, self.anomaly_detector.anomalies)
         
         for hypothesis in self.hypotheses:
+            # Base confidence on evidence quality
+            evidence_count = len(hypothesis.evidence_for)
+            
             # Look for supporting or contradicting evidence
             for correlation in correlations:
                 if correlation['correlation_type'] == 'attack_chain':
                     # Strong evidence for attack chain hypothesis
-                    hypothesis.confidence = min(0.95, hypothesis.confidence + 0.1)
+                    boost = 0.05 * min(evidence_count, 3)  # More evidence = higher boost
+                    hypothesis.confidence = min(0.95, hypothesis.confidence + boost)
                     hypothesis.evidence_for.append(
                         f"Attack chain correlation: {correlation['description']}"
                     )
+            
+            # Boost confidence based on number of MITRE techniques matched
+            if len(mappings) >= 5:
+                hypothesis.confidence = min(0.95, hypothesis.confidence + 0.10)
+            elif len(mappings) >= 3:
+                hypothesis.confidence = min(0.90, hypothesis.confidence + 0.05)
+            
+            # Boost confidence if we have high-severity alerts
+            critical_count = sum(1 for a in alerts if a.severity.value == 'critical')
+            if critical_count >= 5:
+                hypothesis.confidence = min(0.95, hypothesis.confidence + 0.05)
         
         # Update current confidence based on best hypothesis
         if self.hypotheses:
@@ -326,17 +343,23 @@ class AutonomousAgent:
             elif alert.severity == Severity.HIGH and max_severity != Severity.CRITICAL:
                 max_severity = Severity.HIGH
         
+        # Determine if this is an actual incident
+        benign_anomaly_types = {"frequency_anomaly", "volume_spike", "temporal_anomaly"}
+        security_anomalies = [a for a in anomalies if a.anomaly_type not in benign_anomaly_types]
+        is_incident = bool(alerts or security_anomalies or mappings or self.hypotheses)
+
         # Get affected assets
         affected = set()
-        for alert in alerts:
-            affected.update(alert.affected_assets)
-            if alert.source_ip:
-                affected.add(alert.source_ip)
-            if alert.destination_ip:
-                affected.add(alert.destination_ip)
-        for anomaly in anomalies:
-            affected.update(anomaly.affected_entities)
-        
+        if is_incident:
+            for alert in alerts:
+                affected.update(alert.affected_assets)
+                if alert.source_ip:
+                    affected.add(alert.source_ip)
+                if alert.destination_ip:
+                    affected.add(alert.destination_ip)
+            for anomaly in security_anomalies:
+                affected.update(anomaly.affected_entities)
+
         # Determine root cause from best hypothesis
         root_cause = "Unknown"
         if self.hypotheses:
@@ -344,15 +367,20 @@ class AutonomousAgent:
             root_cause = best_hypothesis.description
         
         # Generate summary
-        summary = self._generate_summary(alerts, anomalies, mappings)
+        if is_incident:
+            summary = self._generate_summary(alerts, anomalies, mappings)
+        else:
+            summary = "No incident indicators detected in the provided logs."
+            root_cause = "None"
+            timeline = []
         
         # Collect mitigation actions - generate based on detected threats
-        mitigations = self._generate_mitigations(alerts, anomalies)
+        mitigations = self._generate_mitigations(alerts, anomalies) if is_incident else []
         
         return IncidentReport(
             incident_id=f"INC-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
             timestamp=datetime.now(),
-            title=f"Cybersecurity Incident: {root_cause[:50]}",
+            title=f"Cybersecurity Incident: {root_cause}",
             summary=summary,
             severity=max_severity,
             root_cause=root_cause,
@@ -360,7 +388,8 @@ class AutonomousAgent:
             timeline=timeline,
             mitre_mappings=mappings,
             mitigation_actions=mitigations,
-            confidence=self.current_confidence,
+            confidence=self.current_confidence if is_incident else 0.0,
+            is_incident=is_incident,
             investigation_steps=[s['step'] for s in self.investigation_plan.completed_steps],
             hypotheses=self.hypotheses
         )
@@ -369,28 +398,96 @@ class AutonomousAgent:
         """Generate mitigation recommendations based on detected threats"""
         mitigations = []
         
-        # Mitigation based on alert types
-        alert_types = set(a.alert_type for a in alerts)
+        # Collect all alert descriptions and types - also check logs for keywords
+        all_text = ' '.join([a.alert_type + ' ' + a.description for a in alerts]).lower()
         
-        if 'brute_force_attempt' in {a.anomaly_type for a in anomalies}:
-            mitigations.append("Implement account lockout policy after failed login attempts")
-            mitigations.append("Enable multi-factor authentication for all accounts")
+        # Also check anomalies for context
+        all_text += ' ' + ' '.join([a.anomaly_type + ' ' + a.description for a in anomalies]).lower()
         
-        if any('sql_injection' in a.alert_type for a in alerts):
-            mitigations.append("Apply input validation and parameterized queries")
-            mitigations.append("Update and patch web application vulnerabilities")
+        # Ransomware-specific mitigations
+        if 'ransomware' in all_text or 'encryption' in all_text or 'encrypted' in all_text or 'locked' in all_text or '.locked' in all_text:
+            mitigations.extend([
+                "Isolate infected systems from network immediately",
+                "Restore data from known good backups",
+                "DO NOT pay ransom - contact law enforcement",
+                "Implement offline backup strategy with air-gapped storage",
+                "Deploy endpoint detection and response (EDR) solutions",
+                "Enable and test Volume Shadow Copy Service protection"
+            ])
         
-        if any('port_scan' in a.anomaly_type for a in anomalies):
-            mitigations.append("Review and restrict network firewall rules")
-            mitigations.append("Implement network segmentation")
+        # Cryptomining-specific mitigations
+        if 'mining' in all_text or 'crypto' in all_text or 'xmrig' in all_text or 'high cpu' in all_text or 'cpu usage' in all_text:
+            mitigations.extend([
+                "Terminate malicious mining processes immediately",
+                "Remove cryptominer binaries and persistence mechanisms",
+                "Block connections to cryptocurrency mining pools at firewall",
+                "Implement CPU and network usage monitoring and alerts",
+                "Scan for and remove rootkits and kernel modules",
+                "Patch exploited RCE vulnerabilities immediately"
+            ])
         
-        # Generic mitigations
-        mitigations.extend([
-            "Review and rotate compromised credentials",
-            "Conduct forensic analysis on affected systems",
-            "Monitor for indicators of compromise",
-            "Update incident response procedures based on findings"
-        ])
+        # Phishing/Malware-specific mitigations
+        if 'phishing' in all_text or 'attachment' in all_text or 'malicious email' in all_text:
+            mitigations.extend([
+                "Quarantine malicious emails and block sender",
+                "Implement email attachment sandboxing",
+                "Conduct security awareness training for staff",
+                "Deploy email authentication (SPF, DKIM, DMARC)"
+            ])
+        
+        # Brute force/credential attacks
+        if 'brute_force_attempt' in {a.anomaly_type for a in anomalies} or 'failed login' in all_text:
+            mitigations.extend([
+                "Implement account lockout policy after failed login attempts",
+                "Enable multi-factor authentication for all accounts",
+                "Deploy adaptive authentication based on risk",
+                "Monitor and alert on authentication anomalies"
+            ])
+        
+        # SQL Injection
+        if any('sql_injection' in a.alert_type for a in alerts) or 'sql injection' in all_text:
+            mitigations.extend([
+                "Apply input validation and parameterized queries",
+                "Update and patch web application vulnerabilities",
+                "Deploy web application firewall (WAF)",
+                "Conduct security code review"
+            ])
+        
+        # Lateral movement
+        if 'lateral movement' in all_text or 'ssh' in all_text or 'rdp' in all_text:
+            mitigations.extend([
+                "Implement network segmentation and micro-segmentation",
+                "Enforce principle of least privilege for service accounts",
+                "Monitor and restrict east-west traffic",
+                "Deploy jump servers for administrative access"
+            ])
+        
+        # Data exfiltration
+        if 'exfiltration' in all_text or 'data transfer' in all_text:
+            mitigations.extend([
+                "Implement data loss prevention (DLP) solutions",
+                "Monitor and restrict outbound data transfers",
+                "Encrypt sensitive data at rest and in transit",
+                "Review and revoke excessive data access permissions"
+            ])
+        
+        # Reconnaissance/scanning
+        if any('port_scan' in a.anomaly_type for a in anomalies) or 'scanning' in all_text:
+            mitigations.extend([
+                "Review and restrict network firewall rules",
+                "Implement network segmentation",
+                "Deploy intrusion detection and prevention systems",
+                "Hide service banners and reduce attack surface"
+            ])
+        
+        # Add generic mitigations only if specific ones weren't found
+        if len(mitigations) < 3:
+            mitigations.extend([
+                "Conduct forensic analysis on affected systems",
+                "Review and rotate compromised credentials",
+                "Monitor for indicators of compromise",
+                "Update incident response procedures based on findings"
+            ])
         
         # Remove duplicates while preserving order
         seen = set()
